@@ -1,4 +1,206 @@
-<center>
-<h1>Magii</h1>
-</center>
-<hr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI by 2031: What changes in five years</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9EFF3; --surface:#F7FAFB; --ink:#10233A; --muted:#51647A;
+  --teal:#0B7F83; --amber:#B86E00; --line:#C4D0DA;
+  --display:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;
+  --body:'Source Serif 4',Georgia,'Times New Roman',serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1A28; --surface:#14263A; --ink:#E6EEF5; --muted:#9AB0C5;
+    --teal:#4FD1D5; --amber:#F0B34E; --line:#27405A; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1A28; --surface:#14263A; --ink:#E6EEF5; --muted:#9AB0C5;
+  --teal:#4FD1D5; --amber:#F0B34E; --line:#27405A; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.125rem;line-height:1.65}
+main{max-width:960px;margin:0 auto;padding:0 1.25rem 4rem}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0}
+a{color:var(--teal)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+/* hero */
+.hero{padding:4rem 0 2.5rem}
+.hero h1{font-size:clamp(2.6rem,8vw,5.5rem);font-weight:800;letter-spacing:-.03em;max-width:14ch}
+.hero p.lede{max-width:56ch;color:var(--muted);margin:1.25rem 0 0}
+
+/* year scrubber */
+.scrub{background:var(--surface);border:2px solid var(--ink);border-radius:6px;padding:1.5rem;margin-top:2rem}
+.yearbig{font-family:var(--display);font-weight:800;font-size:clamp(4rem,16vw,9rem);line-height:.9;letter-spacing:-.04em;color:var(--teal)}
+.yearbig small{font-size:.22em;letter-spacing:0;color:var(--amber);margin-left:.5rem;font-weight:500}
+input[type=range]{width:100%;margin:1.25rem 0 .25rem;accent-color:var(--teal);height:2rem}
+.ticks{display:flex;justify-content:space-between;font-family:var(--display);font-size:.95rem;color:var(--muted)}
+.ticks button{background:none;border:0;font:inherit;color:inherit;cursor:pointer;padding:.5rem .25rem}
+.ticks button[aria-current=true]{color:var(--ink);font-weight:800}
+#yhead{font-family:var(--display);font-size:1.6rem;font-weight:800;margin-top:1rem;line-height:1.15}
+#ybody{max-width:62ch;margin:.5rem 0 0}
+
+section{margin-top:4rem}
+h2{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.75rem}
+.intro{color:var(--muted);max-width:60ch;margin:0 0 1.5rem}
+
+/* sector tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.tabs button{font-family:var(--display);font-weight:500;font-size:1rem;background:transparent;color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:.5rem 1.1rem;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{background:var(--surface);border-left:6px solid var(--teal);padding:1.5rem}
+.panel h3{font-size:1.6rem;margin-bottom:.5rem}
+.panel p{margin:.5rem 0}
+.panel .now{color:var(--muted)}
+.panel .then{font-weight:600}
+
+/* gains vs risks */
+.split{display:grid;gap:1.25rem;grid-template-columns:1fr 1fr}
+.split>div{padding:1.5rem;border-top:6px solid var(--teal);background:var(--surface)}
+.split>div.risk{border-top-color:var(--amber)}
+.split h3{font-size:1.4rem;margin-bottom:.75rem}
+.split ul{margin:0;padding-left:1.1rem}
+.split li{margin-bottom:.6rem}
+
+.actions{counter-reset:s;list-style:none;padding:0;margin:0}
+.actions li{counter-increment:s;display:grid;grid-template-columns:3rem 1fr;gap:.75rem;padding:1rem 0;border-top:1px solid var(--line)}
+.actions li::before{content:counter(s);font-family:var(--display);font-weight:800;font-size:2rem;color:var(--amber);line-height:1}
+.actions strong{font-family:var(--display);font-size:1.2rem}
+
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+
+@media (max-width:640px){
+  body{font-size:1.05rem}
+  .split{grid-template-columns:1fr}
+  .hero{padding-top:2.5rem}
+}
+@media (prefers-reduced-motion:no-preference){
+  #ystage{animation:rise .5s ease-out both}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <h1>What AI will do in the next five years</h1>
+    <p class="lede">Drag the slider from today to 2031. These are informed forecasts, not facts: the direction is fairly clear, the timing is not.</p>
+
+    <div class="scrub" id="ystage">
+      <div class="yearbig"><span id="yn">2026</span><small id="ytag">today</small></div>
+      <label for="yr" class="sr" style="position:absolute;left:-9999px">Year</label>
+      <input type="range" id="yr" min="0" max="5" step="1" value="0" aria-describedby="yhead">
+      <div class="ticks" id="ticks"></div>
+      <div id="yhead" aria-live="polite"></div>
+      <p id="ybody"></p>
+    </div>
+  </header>
+
+  <section>
+    <h2>Where it lands first</h2>
+    <p class="intro">Pick a part of life. Each one shows where AI is now and where it is likely to be by 2031.</p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+  </section>
+
+  <section>
+    <h2>The upside and the cost</h2>
+    <div class="split">
+      <div>
+        <h3>Likely gains</h3>
+        <ul>
+          <li>Routine paperwork, scheduling and first-draft work shrink from hours to minutes.</li>
+          <li>Personal tutoring and health guidance become available to people who could never afford them.</li>
+          <li>Researchers test far more ideas, so new drugs and materials arrive sooner.</li>
+          <li>Small teams can build products that once needed whole companies.</li>
+        </ul>
+      </div>
+      <div class="risk">
+        <h3>Real risks</h3>
+        <ul>
+          <li>Entry-level white-collar jobs change fastest, which makes it harder to get a first role.</li>
+          <li>Convincing fake audio, video and text make trust harder to establish.</li>
+          <li>Power concentrates in the few firms that can afford the largest systems.</li>
+          <li>Errors made at speed and scale can spread before a human notices.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How to get ready</h2>
+    <ol class="actions">
+      <li><div><strong>Learn to direct AI, not just use it.</strong><br>Clear instructions, checking the output and knowing when it is wrong are the skills that last.</div></li>
+      <li><div><strong>Build things you can show.</strong><br>Projects and certifications prove your ability more than a claim that you use AI tools.</div></li>
+      <li><div><strong>Keep the human skills sharp.</strong><br>Communication, judgment and responsibility are hard to hand off.</div></li>
+      <li><div><strong>Verify before you trust.</strong><br>Check sources, question surprising media and keep a second opinion for big decisions.</div></li>
+    </ol>
+  </section>
+
+  <footer>Forecasts reflect widely discussed expert expectations as of 2026 and will be wrong in places. Treat them as a map of possibilities.</footer>
+</main>
+
+<script>
+(function(){
+  var years=[
+    {y:2026,t:'today',h:'AI assists, and people do the steering',b:'Chat assistants write, summarize, translate and help with code. They make mistakes, so every answer still needs a human check.'},
+    {y:2027,t:'agents arrive',h:'AI starts finishing multi-step tasks',b:'Agents book trips, file reports, fix bugs and run small workflows with review at the end. Companies start to measure real time saved.'},
+    {y:2028,t:'expert helpers',h:'Everyone gets a tutor and a second opinion',b:'Study, medical triage and legal basics come with a capable assistant. Regulators begin setting rules for high-stakes use.'},
+    {y:2029,t:'science speeds up',h:'AI joins the lab, not only the office',b:'Systems propose experiments, read the results and iterate. Drug discovery and materials research move noticeably faster.'},
+    {y:2030,t:'it just runs',h:'Personal AI handles the routine admin of life',b:'Bills, appointments, applications and inbox triage run in the background. Your attention goes to decisions.'},
+    {y:2031,t:'new normal',h:'Most software has AI built in, and jobs are reshaped',b:'Many roles centre on supervising AI work and taking responsibility for it. New jobs appear, but the shift asks for steady retraining.'}
+  ];
+  var sectors=[
+    {n:'Work',now:'Assistants draft emails, code and reports.',then:'Agents run whole workflows. People manage, review and decide.'},
+    {n:'Health',now:'AI reads scans and summarizes notes for clinicians.',then:'Continuous monitoring and AI triage catch problems earlier. Doctors keep the final call.'},
+    {n:'Education',now:'Students use chatbots to explain topics and check work.',then:'Each learner gets a patient tutor that adapts to their pace. Schools focus on projects and oral reasoning.'},
+    {n:'Science',now:'AI predicts protein structures and sifts papers.',then:'Automated labs test thousands of ideas, shortening the path from hypothesis to result.'},
+    {n:'Daily life',now:'Voice assistants set timers. Recommendation feeds shape what you see.',then:'A personal AI manages errands and filters information on your behalf, which makes your choice of provider important.'}
+  ];
+
+  var yr=document.getElementById('yr'), yn=document.getElementById('yn'), yt=document.getElementById('ytag'),
+      yh=document.getElementById('yhead'), yb=document.getElementById('ybody'), ticks=document.getElementById('ticks');
+
+  function setYear(i){
+    var d=years[i];
+    yn.textContent=d.y; yt.textContent=d.t; yh.textContent=d.h; yb.textContent=d.b;
+    yr.value=i; yr.setAttribute('aria-valuetext',d.y+': '+d.h);
+    Array.prototype.forEach.call(ticks.children,function(b,j){ if(j===i) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); });
+  }
+  years.forEach(function(d,i){
+    var b=document.createElement('button'); b.type='button'; b.textContent=d.y;
+    b.addEventListener('click',function(){setYear(i)}); ticks.appendChild(b);
+  });
+  yr.addEventListener('input',function(){setYear(+yr.value)});
+  setYear(0);
+
+  var tabs=document.getElementById('tabs'), panel=document.getElementById('panel');
+  function setSector(i){
+    var s=sectors[i];
+    panel.innerHTML='';
+    var h=document.createElement('h3'); h.textContent=s.n;
+    var a=document.createElement('p'); a.className='now'; a.textContent='Now: '+s.now;
+    var c=document.createElement('p'); c.className='then'; c.textContent='By 2031: '+s.then;
+    panel.appendChild(h); panel.appendChild(a); panel.appendChild(c);
+    Array.prototype.forEach.call(tabs.children,function(b,j){ b.setAttribute('aria-selected',j===i?'true':'false'); });
+  }
+  sectors.forEach(function(s,i){
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.textContent=s.n;
+    b.addEventListener('click',function(){setSector(i)}); tabs.appendChild(b);
+  });
+  setSector(0);
+})();
+</script>
+</body>
+</html>
